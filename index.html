@@ -4,14 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./styles/style.css">
     <title>Document</title>
 </head>
 <body>
-    <div>
-        <h1>show</h1>
-        <a href="" class="connect">log in meet up</a>
+    <header>
+        <div class=" wrapper headerContent">
+            <div class="headerTitle">
+                <h1>Events Finder</h1>
+            </div>
+            <div class="headerDescription">
+                <p>Can you guess the correct price of these items sold at Walmart in Canadian Dollars without going over?
+                </p>
+                <a href="" class="connect"></a>
+            </div>
+            <div class="inputWrapper">
+                <form action="">
+                    <div class="textInput">
+                        <input type="text" id="queryInput" name="queryInput" placeholder="Search Keyword(optional)" >
+                        <label for="query" class="visuallyHidden">Search Keyword(optional)</label>
+                    </div>
+                    <div class="textInput">
+                        <input type="text" id="locationInput" name="locationInput" placeholder="Location(optional)">
+                        <label for="locationInput" class="visuallyHidden">Location(optional)</label>
+                    </div>
+                    <label for="submitSearch" class="visuallyHidden">submitSearch</label>
+                    <input class="submitButton" type="submit" value="submitSearch" id="submitSearch">
+                </form>
+            </div>
+        </div>
+    </header>
+    <div>    
     </div>
-    
+    <footer>
+        <p>
+            <p>Powered! by Meetup API</p>
+            <P>&copy;Frankie Wang</P>
+        </p>
+    </footer>
     <script src='https://code.jquery.com/jquery-3.2.1.min.js' integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4='crossorigin='anonymous'></script>
-    <script src="main.js"></script>
+    <script type="module" src="main.js"></script>
 </body>

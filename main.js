@@ -53,9 +53,10 @@ app.getUserInput = function() {
 					params: {
 						// lon: -73.98999786376953,
 						// lat: 40.75,
-						access_token: app.token
+						access_token: app.token,
+						page:20,
+						fields: "plain_text_no_images_description"
 					},
-
 					xmlToJSON: false,
 					useCache: false
 				}
@@ -128,7 +129,7 @@ app.apiCallLocation =function () {
 			reqUrl: LOCATIONS_ENDPOINT,
 			params: {
 				query: app.locationInput,
-				access_token: app.token
+				// access_token: app.token
 			},
 			xmlToJSON: false,
 			useCache: false
@@ -173,48 +174,85 @@ app.apiCallEvents =function (params) {
 			console.log(res);
 			if(res.events.length){
 				const newArray = [...res.events];
-				app.eventsArray=[newArray];
+				app.eventsArray=[...newArray];
 				console.log(app.eventsArray);
-				
+				app.htmlStringMaking(app.eventsArray);
 			}else {
 				app.sweetAlert("no events there...maybe check your input please😓")
 			}
 		}).fail(err=>{
 			console.log(err);
 		})
-	// $.ajax({
-	// 	url: "http://proxy.hackeryou.com",
-	// 	dataType: "json",
-	// 	method: "GET",
-	// 	data: {
-	// 		reqUrl: RESOURCE_ENDPOINT,
-	// 		params: {
-	// 			// lon: -73.98999786376953,
-	// 			// lat: 40.75,
-	// 			lon: app.locationInfo.lon,
-	// 			lat: app.locationInfo.lat,
-	// 			text: app.queryInput,
-	// 			access_token: app.token
-	// 		},
-
-	// 		xmlToJSON: false,
-	// 		useCache: false
-	// 	}
-	// })
-	// 	.then(res => {
-	// 		console.log(res);
-	// 		console.log("happy");
-	// 	})
-	// 	.fail(err => {
-	// 		console.log(err);
-	// 	});
-
+}
+app.htmlStringMaking=function (array) {
+	console.log("html String");
+	
+	const $resultWrapper = $(".resultWrapper");
+	$resultWrapper.empty();
+	array.map((item, i)=>{
+		const {duration, group, link, local_date, local_time}=item;
+		const $card = $("<div>").addClass("card");
+		const $basicInfo = $("<div>").addClass("basicInfo");
+		const $time = $("<div>").addClass("time");
+		const $eventDetails = $("<div>").addClass("eventDetails")
+		const $number = $(`<h3>${i}</h3>`).addClass("number");
+		const $eventName = $(
+			`<h4>${name} organanized by ${group.name}</h4>`
+		).addClass("eventName");
+		const $eventDate = $(`<p>${local_date}</p>`).addClass("eventDate");
+		const $eventTime = $(`<p>${local_time} - ${duration}</p>`).addClass("eventTime")
+		// const durationTime = 10850000/60000;
+		// console.log(durationTime);
+		$basicInfo.append($number, $eventName);
+		$time.append($eventDate, $eventTime);
+		if (
+			item.visibility === "public" &&
+			item.venue !== undefined &&
+			item["plain_text_no_images_description"]!==undefined
+		) {
+			const { name, address_1, city, country } = item.venue;
+			const $eventVenue = $(
+				`<p>${name}</p><p>${address_1}</p><p>${city}-${country}</p>`
+			).addClass("venue");
+			const $description = $(
+				`<p>${item["plain_text_no_images_description"]}</p>`
+			).addClass("description");
+			$eventDetails.append($eventVenue, $description);
+		} else if (
+					item.visibility === "public" &&
+					item["plain_text_no_images_description"] !==
+						undefined
+				) {
+					const $description = $(
+						`<p>${
+							item[
+								"plain_text_no_images_description"
+							]
+						}</p>`
+					).addClass("description");
+					$eventDetails.append(
+						$description
+					);
+				}
+		else {
+			const $findMore = $(`<p>find more infomation on <a target="_blank" href=${link}>check it on Meetup.com</a></p>`)
+			$eventDetails.append($findMore);
+		}
+		$card.append($basicInfo, $time, $eventDetails);
+		$resultWrapper.append($card);
+		
+		// const $link = $(`<a target="_blank" href=${link}>check it on Meetup.com</a>`).addClass("link")
+	})
+}
+app.scrollDown = function () {
 	
 }
-
-
+app.goUp=function () {
 	
-
+}
+app.init=function () {
+	
+}
 
 $(function() {
 	app.checkOauth();

@@ -45,7 +45,7 @@ app.getUserInput = function() {
 		$locationInput.val("");
 		app.checkOauth();
 		if (app.token) {
-			app.paramsForApiCall1 = {
+			app.paramsForApiCall = {
 				url: "http://proxy.hackeryou.com",
 				dataType: "json",
 				method: "GET",
@@ -104,11 +104,13 @@ app.apiCall = async function() {
 		app.status = await app.apiCallLocation();
 	}else if(app.regexCheck(app.queryInput)) {
 		console.log("single");
-		console.log(app.paramsForApiCall2);
+		app.paramsForApiCall.data.params.text = app.queryInput;
+		console.log(app.paramsForApiCall);
 		
-		app.apiCallEvents(app.paramsForApiCall2);
+		
+		app.apiCallEvents(app.paramsForApiCall);
 	}else {
-		app.apiCallEvents(app.paramsForApiCall1);
+		app.apiCallEvents(app.paramsForApiCall);
 	}
 
 
@@ -138,51 +140,22 @@ app.apiCallLocation =function () {
 			console.log(app.locationInfo, (typeof(app.locationInfo.lon)));
 			
 			console.log(app.locationInfo.lon, app.locationInfo.lat);
-			app.paramsForApiCall3 = {
-				url: "http://proxy.hackeryou.com",
-				dataType: "json",
-				method: "GET",
-				data: {
-					reqUrl: RESOURCE_ENDPOINT,
-					params: {
-						// lon: -0.1,
-						// lat: 51.52,
-						lon: app.locationInfo.lon,
-						lat: app.locationInfo.lat,
-						access_token: app.token
-					},
-
-					xmlToJSON: false,
-					useCache: false
-				}
-			};
-			app.paramsForApiCall4 = {
-				url: "http://proxy.hackeryou.com",
-				dataType: "json",
-				method: "GET",
-				data: {
-					reqUrl: RESOURCE_ENDPOINT,
-					params: {
-						// lon: -0.1,
-						// lat: 51.52,
-						lon: app.locationInfo.lon,
-						lat: app.locationInfo.lat,
-						text: app.queryInput,
-						access_token: app.token
-					},
-
-					xmlToJSON: false,
-					useCache: false
-				},
-
-			};
 			
 		}
 		console.log("happy again");
 		if (app.regexCheck(app.queryInput)) {
-			app.apiCallEvents(app.paramsForApiCall4);
+			app.paramsForApiCall.data.params.text=app.queryInput
+			app.paramsForApiCall.data.params.lon = app.locationInfo.lon;
+			app.paramsForApiCall.data.params.lat = app.locationInfo.lat;
+			console.log(app.paramsForApiCall);
+			
+			app.apiCallEvents(app.paramsForApiCall);
 		}else {
-			app.apiCallEvents(app.paramsForApiCall3);
+			app.paramsForApiCall.data.params.lon =
+				app.locationInfo.lon;
+			app.paramsForApiCall.data.params.lat =
+				app.locationInfo.lat;
+			app.apiCallEvents(app.paramsForApiCall);
 		}
 		
 	}).fail(err=>{

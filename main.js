@@ -16,7 +16,6 @@ app.checkOauth = function () {
 	if (app.token) {
 		console.log(app.token);
 		$("a.connect").text("logOut");
-		
 	} else {
 		console.log("need authentication");
 		const authUrl =
@@ -79,13 +78,9 @@ app.getUserInput = function() {
 			};
 			app.apiCall();
 		} else {
-			Swal.fire({
-				title: "oops",
-				background: "#ffe438",
-				text: "please log in to search",
-				confirmButtonText: "OK",
-				confirmButtonColor: "#349052"
-			});
+					app.sweetAlert(
+						"please log in to use search😓"
+					);
 		}
 	});
 };
@@ -96,7 +91,15 @@ app.regexCheck = function (string) {
 		return false
 	}
 }
-
+app.sweetAlert = function(text) {
+	Swal.fire({
+		title: "oops",
+		background: "#ffe438",
+		text: text,
+		confirmButtonText: "OK",
+		confirmButtonColor: "#349052"
+	});
+}
 app.apiCall = async function() {
 	if (app.regexCheck(app.locationInput)) {
 		console.log("both");
@@ -160,7 +163,6 @@ app.apiCallLocation =function () {
 		
 	}).fail(err=>{
 		console.log(err)
-
 	})
 	return true;
 }
@@ -169,10 +171,16 @@ app.apiCallEvents =function (params) {
 	
 		$.ajax(params).then(res=>{
 			console.log(res);
-			
+			if(res.events.length){
+				const newArray = [...res.events];
+				app.eventsArray=[newArray];
+				console.log(app.eventsArray);
+				
+			}else {
+				app.sweetAlert("no events there...maybe check your input please😓")
+			}
 		}).fail(err=>{
 			console.log(err);
-			
 		})
 	// $.ajax({
 	// 	url: "http://proxy.hackeryou.com",

@@ -6,7 +6,20 @@ import {
 	LOCATIONS_ENDPOINT
 } from "./scripts/apiInfo.js";
 app.locationInfo={};
-
+app.monthArr = [
+	"January",
+	"February",
+	"March",
+	"April",
+	"May",
+	"June",
+	"July",
+	"August",
+	"September",
+	"October",
+	"November",
+	"December"
+];
 app.extractToken =function(hash) {
 		const match = hash.match(/access_token=([\w-]+)/);
 		return !!match && match[1];
@@ -30,6 +43,56 @@ app.checkOauth = function () {
 			.attr("href", authUrl)
 			.text("logIN");
 	}
+}
+app.getMonth =function (num) {
+	const word = app.monthArr[num-1];
+	return word;
+}
+app.getEndTime = function (startTime, duration, startDate) {
+	console.log("duration", duration);
+	const dateArr = startDate.split("-");
+	console.log(dateArr);
+	const monthNum = parseInt(dateArr[1]);
+	const monthWord = app.getMonth(monthNum);
+	console.log(monthWord);
+	const startTimeArr = startTime.split(":");
+	console.log(startTimeArr);
+	const hour= parseInt(startTimeArr[0]);
+	const minutes = parseInt(startTimeArr[1]);
+	const durHour = Math.floor(duration / (1000*60*60));
+	const durMinuteRem = Math.floor(duration % (1000*60*60) / (1000*60));
+	// console.log(durHour, durMinuteRem);
+	if (
+		hour + durHour >= 24 ||
+		(hour + durHour === 23 && minutes + durMinuteRem >= 60)
+	) {
+		const newDay = parseInt(dateArr[2]) + parseInt(duration/(1000*60*60*24));
+		const endTime =  `${monthWord} ${newDay}, ${dateArr[0] }`
+		console.log(endTime);
+		
+	} else if (minutes + durMinuteRem > 60) {
+		const endTime = `${hour + durHour + 1}:${minutes +
+			durMinuteRem -
+			60}`;
+		console.log(endTime);
+		return endTime;
+	} else if (minutes + durMinuteRem === 60) {
+		const endTime = `${hour + durHour + 1}:0${minutes +
+			durMinuteRem -
+			60}`;
+		console.log(endTime);
+		return endTime;
+	} else if (minutes + durMinuteRem === 0) {
+		const endTime = `${hour + durHour}:0${minutes + durMinuteRem}`;
+		console.log(endTime);
+		return endTime;
+	} else {
+		const endTime = `${hour + durHour}:${minutes + durMinuteRem}`;
+		console.log(endTime);
+
+		return endTime;
+	}
+		
 }
 app.getUserInput = function() {
 	$(".userInput").on("submit", function(e) {
@@ -189,7 +252,7 @@ app.htmlStringMaking=function (array) {
 	
 	const $resultWrapper = $(".resultWrapper");
 	$resultWrapper.empty();
-	array.map((item, i)=>{
+	array.forEach((item, i)=>{
 		const {duration, group, link, local_date, local_time}=item;
 		const $card = $("<div>").addClass("card");
 		const $basicInfo = $("<div>").addClass("basicInfo");
@@ -199,7 +262,13 @@ app.htmlStringMaking=function (array) {
 		const $eventName = $(
 			`<h4>${name} organanized by ${group.name}</h4>`
 		).addClass("eventName");
-		const $eventDate = $(`<p>${local_date}</p>`).addClass("eventDate");
+		//haveto use the info in the array so not separate it out
+		
+		const $eventDate = $(
+			// `<p>${monthWord} ${dateArr[2]}, ${dateArr[0]}</p>`
+		).addClass("eventDate");
+		app.getEndTime(local_time, duration, local_date);
+
 		const $eventTime = $(`<p>${local_time} - ${duration}</p>`).addClass("eventTime")
 		// const durationTime = 10850000/60000;
 		// console.log(durationTime);
@@ -208,14 +277,17 @@ app.htmlStringMaking=function (array) {
 		if (
 			item.visibility === "public" &&
 			item.venue !== undefined &&
-			item["plain_text_no_images_description"]!==undefined
+			item["description"]!==undefined
 		) {
+			const letterNumbers = item["plain_text_no_images_description"].trim().split(/\s+/).length;
+			// console.log(letterNumbers);
+			
 			const { name, address_1, city, country } = item.venue;
 			const $eventVenue = $(
 				`<p>${name}</p><p>${address_1}</p><p>${city}-${country}</p>`
 			).addClass("venue");
 			const $description = $(
-				`<p>${item["plain_text_no_images_description"]}</p>`
+				`<div>${item["description"]}</div>`
 			).addClass("description");
 			$eventDetails.append($eventVenue, $description);
 		} else if (

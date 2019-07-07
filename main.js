@@ -7,18 +7,18 @@ import {
 } from "./scripts/apiInfo.js";
 app.locationInfo={};
 app.monthArr = [
-	"January",
-	"February",
-	"March",
-	"April",
-	"May",
-	"June",
-	"July",
-	"August",
-	"September",
-	"October",
-	"November",
-	"December"
+	["January", 31],
+	["February", 28],
+	["March",31], 
+	["April",30],
+	["May",31],
+	["June",30],
+	["July",31],
+	["August",31],
+	["September",30],
+	["October",31],
+	["November",30],
+	["December",31],
 ];
 app.extractToken =function(hash) {
 		const match = hash.match(/access_token=([\w-]+)/);
@@ -44,55 +44,46 @@ app.checkOauth = function () {
 			.text("logIN");
 	}
 }
-app.getMonth =function (num) {
-	const word = app.monthArr[num-1];
-	return word;
-}
-app.getEndTime = function (startTime, duration, startDate) {
+
+app.getTime = function (startTime, duration, startDate) {
+	console.log("new event date");
+	
 	console.log("duration", duration);
 	const dateArr = startDate.split("-");
 	console.log(dateArr);
 	const monthNum = parseInt(dateArr[1]);
-	const monthWord = app.getMonth(monthNum);
-	console.log(monthWord);
+	console.log(monthNum);	
+	let monthWord = (app.monthArr)[monthNum - 1][0];
+	const startTimeString = `${monthWord} ${dateArr[2]}, ${dateArr[0]}, ${startTime}`
+	console.log("month", monthWord);
 	const startTimeArr = startTime.split(":");
 	console.log(startTimeArr);
 	const hour= parseInt(startTimeArr[0]);
 	const minutes = parseInt(startTimeArr[1]);
-	const durHour = Math.floor(duration / (1000*60*60));
-	const durMinuteRem = Math.floor(duration % (1000*60*60) / (1000*60));
-	// console.log(durHour, durMinuteRem);
-	if (
-		hour + durHour >= 24 ||
-		(hour + durHour === 23 && minutes + durMinuteRem >= 60)
-	) {
-		const newDay = parseInt(dateArr[2]) + parseInt(duration/(1000*60*60*24));
-		const endTime =  `${monthWord} ${newDay}, ${dateArr[0] }`
-		console.log(endTime);
-		
-	} else if (minutes + durMinuteRem > 60) {
-		const endTime = `${hour + durHour + 1}:${minutes +
-			durMinuteRem -
-			60}`;
-		console.log(endTime);
-		return endTime;
-	} else if (minutes + durMinuteRem === 60) {
-		const endTime = `${hour + durHour + 1}:0${minutes +
-			durMinuteRem -
-			60}`;
-		console.log(endTime);
-		return endTime;
-	} else if (minutes + durMinuteRem === 0) {
-		const endTime = `${hour + durHour}:0${minutes + durMinuteRem}`;
-		console.log(endTime);
-		return endTime;
-	} else {
-		const endTime = `${hour + durHour}:${minutes + durMinuteRem}`;
-		console.log(endTime);
 
-		return endTime;
-	}
-		
+	const startTimeMls = hour * 60*60*1000 +minutes*60*1000;
+	const endTimeMls = startTimeMls +duration;
+	const multiplierOfDay = Math.floor(endTimeMls/(1000*60*60*24));
+	let endDate = parseInt(dateArr[2]) +multiplierOfDay;
+	const endHours = parseInt(
+		(endTimeMls % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+	);
+	const endMinutes = parseInt(
+		(endTimeMls % (1000 * 60 * 60)) / (1000 * 60)
+	);
+	let endTimeString2 = endHours< 10? `0${endHours}:` : `${endHours}:`;
+	let endTimeString3 = endMinutes<10? `0${endMinutes}`: `${endMinutes}`;
+
+		if (endDate>app.monthArr[monthNum - 1][1]) {
+			monthWord = app.monthArr[monthNum][0];
+			endDate -= app.monthArr[monthNum - 1][1];
+			console.log("endMinutes", endMinutes);
+		}else if(multiplierOfDay === 0){
+			endDate = dateArr[2];
+		}
+		const endTimeString1 = `${monthWord} ${endDate}, ${dateArr[0]}, `;
+		console.log(startTimeString, endTimeString1, endTimeString2, endTimeString3);
+		return ([startTimeString, endTimeString1, endTimeString2, endTimeString3]);
 }
 app.getUserInput = function() {
 	$(".userInput").on("submit", function(e) {
@@ -258,22 +249,24 @@ app.htmlStringMaking=function (array) {
 		const $basicInfo = $("<div>").addClass("basicInfo");
 		const $time = $("<div>").addClass("time");
 		const $eventDetails = $("<div>").addClass("eventDetails")
-		const $number = $(`<h3>${i}</h3>`).addClass("number");
+		const $number = $(`<h3>${i+1}</h3>`).addClass("number");
 		const $eventName = $(
 			`<h4>${name} organanized by ${group.name}</h4>`
 		).addClass("eventName");
 		//haveto use the info in the array so not separate it out
+	
 		
-		const $eventDate = $(
-			// `<p>${monthWord} ${dateArr[2]}, ${dateArr[0]}</p>`
-		).addClass("eventDate");
-		app.getEndTime(local_time, duration, local_date);
-
-		const $eventTime = $(`<p>${local_time} - ${duration}</p>`).addClass("eventTime")
+		const timeStringArr = app.getTime(
+			local_time,
+			duration,
+			local_date
+		);
+		const $eventTime = $(
+			`<p><span>Start at</span> ${timeStringArr[0]}</p><p><span>Ends at</span> ${timeStringArr[1]}${timeStringArr[2]}${timeStringArr[3]}</p>`).addClass("eventTime");
 		// const durationTime = 10850000/60000;
 		// console.log(durationTime);
 		$basicInfo.append($number, $eventName);
-		$time.append($eventDate, $eventTime);
+		$time.append($eventTime);
 		if (
 			item.visibility === "public" &&
 			item.venue !== undefined &&

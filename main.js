@@ -131,7 +131,20 @@ app.getUserInput = function() {
 					useCache: false
 				}
 			};
-			app.apiCall();
+			async function scrollDownApi() {
+					const status = await app.apiCall();
+					if (status) {
+						$("html, body").animate(
+							{
+								scrollTop: $(
+									".resultWrapper"
+								).offset().top
+							},
+							2000
+						);
+					}
+				}
+				scrollDownApi();
 		} else {
 					app.sweetAlert(
 						"please log in to use search😓"
@@ -159,7 +172,7 @@ app.apiCall = async function() {
 	if (app.regexCheck(app.locationInput)) {
 		console.log("both");
 		
-		app.status = await app.apiCallLocation();
+		app.apiCallLocation();
 	}else if(app.regexCheck(app.queryInput)) {
 		console.log("single");
 		app.paramsForApiCall.data.params.text = app.queryInput;
@@ -171,7 +184,7 @@ app.apiCall = async function() {
 		app.apiCallEvents(app.paramsForApiCall);
 	}
 
-
+	return true
 	// app.result = await app.apiCallEvents(app.paramsForApiCall3);
 };
 app.apiCallLocation =function () {

@@ -115,22 +115,7 @@ app.getUserInput = function() {
 					useCache: false
 				}
 			};
-			app.paramsForApiCall2 = {
-				url: "http://proxy.hackeryou.com",
-				dataType: "json",
-				method: "GET",
-				data: {
-					reqUrl: RESOURCE_ENDPOINT,
-					params: {
-						// lon: -73.98999786376953,
-						// lat: 40.75,
-						text: app.queryInput,
-						access_token: app.token
-					},
-					xmlToJSON: false,
-					useCache: false
-				}
-			};
+			
 			async function scrollDownApi() {
 					const status = await app.apiCall();
 					if (status) {

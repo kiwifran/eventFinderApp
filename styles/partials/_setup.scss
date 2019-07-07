@@ -1,11 +1,13 @@
 //Our Thanks to
 //Photo by Zhen Hu on Unsplash for Header Background in search Page
 
-$white: #efebe5;
+$white: #fffaf4;
 // $primaryColor: #416bff;
 $secondaryColor:#454d60;
 // $activeColor: #7c9da5;
 $activeColor: #cdcdcd;
+// $activeColor: #f7efd4;
+$accentColor: #681310;
 $black: #0f0a05;
 
 $headerFont: 'Bree Serif', serif;
@@ -23,7 +25,7 @@ $bodyFont: 'Open Sans', sans-serif;
     color: $fontColor;
 }
 html {
-    font-size: 125%;
+    font-size: 18px;
 }
 
 body {
@@ -51,9 +53,7 @@ a {
     text-decoration: none;
     color: inherit;
 }
-a:hover {
-    color:$activeColor;
-}
+
 img {
     width: 30%;
     max-width: 30%;

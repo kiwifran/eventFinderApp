@@ -32,12 +32,18 @@ a.connect {
         background-color: $activeColor;
     }
 }
-[type="submit"] {
+// [type="submit"] {
+    
+// }
+.btn-outline-dark {
     margin-bottom: 10px;
     padding: 7px 12px;
+    &:hover {
+        @include color($black, $white);
+        border-color:$black;
+    }
 }
 @media (max-width:620px) {
-
     h1 {
         line-height: 1;
         font-size: 50px;

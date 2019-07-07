@@ -1,8 +1,8 @@
 html {
-  font-size: 125%; }
+  font-size: 18px; }
 
 body {
-  background-color: #efebe5;
+  background-color: #fffaf4;
   color: #0f0a05;
   font-family: "Open Sans", sans-serif; }
 
@@ -16,9 +16,6 @@ p {
 a {
   text-decoration: none;
   color: inherit; }
-
-a:hover {
-  color: #cdcdcd; }
 
 img {
   width: 30%;
@@ -73,9 +70,13 @@ a.connect {
   .textInput input:focus {
     background-color: #cdcdcd; }
 
-[type="submit"] {
+.btn-outline-dark {
   margin-bottom: 10px;
   padding: 7px 12px; }
+  .btn-outline-dark:hover {
+    background-color: #0f0a05;
+    color: #fffaf4;
+    border-color: #0f0a05; }
 
 @media (max-width: 620px) {
   h1 {
@@ -94,11 +95,59 @@ a.connect {
   .textInput input {
     width: 85%; } }
 
+.resultWrapper {
+  max-width: 1600px;
+  padding: 30px 3%; }
+
+.card {
+  width: 31%;
+  padding: 20px;
+  margin-bottom: 25px; }
+  .card h3 {
+    font-family: "Bree Serif", serif;
+    font-size: 30px; }
+  .card h4 {
+    font-size: 22px; }
+  .card a:hover {
+    color: #454d60; }
+
+.basicInfo,
+.eventTime,
+.eventVenue,
+.description,
+.eventDetails {
+  margin-bottom: 15px; }
+
+.truncated {
+  max-height: 350px;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis; }
+
+.readMoreBtn {
+  margin-top: 15px;
+  color: #0f0a05; }
+
+.questionWord,
+.eventTime span {
+  font-family: "Bree Serif", serif; }
+
+.questionWord {
+  font-size: 20px; }
+
+.eventTime span {
+  color: #681310; }
+
+.findMore {
+  color: #681310; }
+
 footer {
   background-color: #0f0a05;
-  color: #efebe5;
+  color: #fffaf4;
   text-align: center;
   height: 50px;
   padding: 5px 0; }
   footer p {
     line-height: 1; }
+  footer a:hover {
+    color: #cdcdcd; }

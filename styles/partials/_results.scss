@@ -1,0 +1,51 @@
+.resultWrapper {
+    max-width: 1600px;
+    padding:30px 3%;
+}
+.card {
+    width:31%;
+    padding:20px;
+    margin-bottom: 25px;
+    h3 {
+        font-family: $headerFont;
+        font-size: 30px;
+        
+    }
+    h4 {
+        font-size: 22px;
+    }
+    a:hover {
+        color:$secondaryColor;
+    }
+}
+.basicInfo,
+.eventTime,
+.eventVenue,
+.description,
+.eventDetails {
+    margin-bottom: 15px;
+}
+.truncated {
+    max-height: 350px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.readMoreBtn {
+    margin-top: 15px;
+    color:$black;
+
+}
+.questionWord,
+.eventTime span {
+    font-family: $headerFont;
+}
+
+.questionWord {
+    font-size: 20px;
+}
+.eventTime span {
+    color:$accentColor;
+}
+.findMore {
+    color:$accentColor;
+}

@@ -6,12 +6,9 @@ footer {
     p {
         line-height: 1;
     }
-    // a {
-    //     &:hover,
-    //     &:focus {
-    //     color: $white;
-    //     }
-    // }
+    a:hover {
+    color:$activeColor;
+  }
 }
 
   // @media (max-width: 400px) {

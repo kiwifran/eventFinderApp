@@ -105,11 +105,9 @@ app.getUserInput = function() {
 				data: {
 					reqUrl: RESOURCE_ENDPOINT,
 					params: {
-						// lon: -73.98999786376953,
-						// lat: 40.75,
 						access_token: app.token,
-						page:20,
-						fields: "plain_text_no_images_description"
+						page:5,
+						fields: "plain_text_no_images_description,photo_album"
 					},
 					xmlToJSON: false,
 					useCache: false
@@ -122,8 +120,8 @@ app.getUserInput = function() {
 						$("html, body").animate(
 							{
 								scrollTop: $(
-									".resultWrapper"
-								).offset().top
+									"main"
+								).offset().top + 10
 							},
 							2000
 						);
@@ -238,78 +236,103 @@ app.apiCallEvents =function (params) {
 }
 app.htmlStringMaking=function (array) {
 	console.log("html String");
-	
-	const $resultWrapper = $(".resultWrapper");
-	$resultWrapper.empty();
+	const $resultWrapper = $("<div>").addClass("resultWrapper");
+	$resultWrapper.empty().addClass("d-flex flex-row justify-content-between flex-wrap");
 	array.forEach((item, i)=>{
-		const {duration, group, link, local_date, local_time}=item;
+		const {duration, group, link, local_date, local_time, name}=item;
 		const $card = $("<div>").addClass("card");
 		const $basicInfo = $("<div>").addClass("basicInfo");
-		const $time = $("<div>").addClass("time");
+		const $cardText= $("<div>").addClass("card-text");		
 		const $eventDetails = $("<div>").addClass("eventDetails")
 		const $number = $(`<h3>${i+1}</h3>`).addClass("number");
 		const $eventName = $(
-			`<h4>${name} organanized by ${group.name}</h4>`
-		).addClass("eventName");
+			`<h3> ${name}</h3>`
+		).addClass("eventName card-title");
+		const $organizer = $(
+			`<h4>organanized by ${group.name}</h4>`
+		).addClass("card-subtitle text-muted");
+		$basicInfo.append( $eventName, $organizer);
 		//haveto use the info in the array so not separate it out
-	
-		
 		const timeStringArr = app.getTime(
 			local_time,
 			duration,
 			local_date
 		);
 		const $eventTime = $(
-			`<p><span>Start at</span> ${timeStringArr[0]}</p><p><span>Ends at</span> ${timeStringArr[1]}${timeStringArr[2]}${timeStringArr[3]}</p>`).addClass("eventTime");
-		// const durationTime = 10850000/60000;
-		// console.log(durationTime);
-		$basicInfo.append($number, $eventName);
-		$time.append($eventTime);
-		if (
-			item.visibility === "public" &&
-			item.venue !== undefined &&
-			item["description"]!==undefined
-		) {
-			const letterNumbers = item["plain_text_no_images_description"].trim().split(/\s+/).length;
-			// console.log(letterNumbers);
-			
+			`<div><p><span>Start at</span> ${
+				timeStringArr[0]
+			}</p><p><span>Ends at</span> ${timeStringArr[1]}${
+				timeStringArr[2]
+			}${timeStringArr[3]}</p></div>`
+		)
+			.addClass("eventTime")
+			.prepend("<p class='questionWord'>When</p>");
+		if(item.venue!==undefined) {
 			const { name, address_1, city, country } = item.venue;
 			const $eventVenue = $(
-				`<p>${name}</p><p>${address_1}</p><p>${city}-${country}</p>`
-			).addClass("venue");
+				`<div><p>${name}-${address_1}</p><p>${city}-${country}</p></div>`
+			)
+				.addClass("eventVenue")
+				.prepend("<p class='questionWord'>Where</p>");
+			$eventDetails.append($eventVenue);
+		}
+		if(item.description!==undefined) {
 			const $description = $(
-				`<div>${item["description"]}</div>`
+				`<div>${item.description}</div>`
 			).addClass("description");
-			$eventDetails.append($eventVenue, $description);
-		} else if (
-					item.visibility === "public" &&
-					item["plain_text_no_images_description"] !==
-						undefined
-				) {
-					const $description = $(
-						`<p>${
-							item[
-								"plain_text_no_images_description"
-							]
-						}</p>`
-					).addClass("description");
-					$eventDetails.append(
-						$description
-					);
-				}
-		else {
-			const $findMore = $(`<p>find more infomation on <a target="_blank" href=${link}>check it on Meetup.com</a></p>`)
+			const letterNumbers = item["plain_text_no_images_description"].trim().split(/\s+/).length;
+			// console.log(letterNumbers);
+			if(letterNumbers>120) {
+				$description.addClass("truncated");
+				const $readMoreBtn = $(
+					"<button>Read More</button>"
+				).addClass(
+					"readMoreBtn btn btn-outline-secondary"
+				);
+				
+				$readMoreBtn.insertAfter($description)
+	
+			}
+			$eventDetails.append($description);
+		}
+		// if (
+		// 	item.visibility === "public" &&
+		// 	item.venue !== undefined &&
+		// 	item["description"]!==undefined
+		// ) {
+			
+		// 		} else if (
+		// 			item.visibility === "public" &&
+		// 			item["plain_text_no_images_description"] !==
+		// 				undefined
+		// 		) {
+		// 			const $description = $(
+		// 				`<p>${
+		// 					item[
+		// 						"plain_text_no_images_description"
+		// 					]
+		// 				}</p>`
+		// 			).addClass("description");
+		// 			$eventDetails.append(
+		// 				$description
+		// 			);
+		// 		}
+		if (
+			item.visibility === "public_limited" &&
+			item.venue === undefined &&
+			item["description"] === undefined
+		) {
+			const $findMore = $(`<p>Find more infomation on <a target="_blank" href="${link}">Meetup.com</a></p>`).addClass("findMore")
 			$eventDetails.append($findMore);
 		}
-		$card.append($basicInfo, $time, $eventDetails);
+		$cardText.append($eventTime, $eventDetails);
+		$card.append($basicInfo, $cardText);
 		$resultWrapper.append($card);
-		
+		$("main").append($resultWrapper);
 		// const $link = $(`<a target="_blank" href=${link}>check it on Meetup.com</a>`).addClass("link")
 	})
 }
-app.scrollDown = function () {
-	
-}
+
 app.goUp=function () {
 	
 }

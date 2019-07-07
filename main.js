@@ -28,7 +28,7 @@ app.checkOauth = function () {
 	app.token = app.extractToken(document.location.hash);
 	if (app.token) {
 		console.log(app.token);
-		$("a.connect").text("logOut");
+		$("a.connect").html(`<i aria-hidden class="fas fa-sign-out-alt" /> Log Out`);
 	} else {
 		console.log("need authentication");
 		const authUrl =
@@ -41,7 +41,7 @@ app.checkOauth = function () {
 
 		$("a.connect")
 			.attr("href", authUrl)
-			.text("logIN");
+			.html(`<i aria-hidden class="fas fa-sign-in-alt" /> Log In`);
 	}
 }
 

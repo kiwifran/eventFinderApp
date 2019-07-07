@@ -1,0 +1,21 @@
+footer {
+    @include color($black, $white);
+    text-align: center;
+    height: 50px;
+    padding: 5px 0;
+    p {
+        line-height: 1;
+    }
+    // a {
+    //     &:hover,
+    //     &:focus {
+    //     color: $white;
+    //     }
+    // }
+}
+
+  // @media (max-width: 400px) {
+    // footer {
+    //     height: auto;
+    //     font-size: 1rem;
+    // }

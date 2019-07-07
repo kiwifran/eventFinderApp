@@ -18,8 +18,8 @@ a {
   color: inherit; }
 
 img {
-  width: 30%;
-  max-width: 30%;
+  width: 50%;
+  max-width: 50%;
   border-radius: 10px;
   display: block; }
 
@@ -118,8 +118,13 @@ a.connect {
 .eventDetails {
   margin-bottom: 15px; }
 
+.description {
+  line-height: 1.28; }
+  .description img {
+    margin-top: 10px;
+    margin-bottom: 10px; }
+
 .truncated {
-  max-height: 350px;
   overflow: hidden;
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis; }
@@ -133,13 +138,47 @@ a.connect {
   font-family: "Bree Serif", serif; }
 
 .questionWord {
-  font-size: 20px; }
+  font-size: 20px;
+  margin-bottom: 5px; }
 
 .eventTime span {
   color: #681310; }
 
-.findMore {
+.findMore a {
   color: #681310; }
+
+@media (max-width: 1100px) {
+  .card {
+    width: 49%;
+    padding: 40px; } }
+
+@media (max-width: 1000px) {
+  .card {
+    padding: 20px; } }
+
+@media (max-width: 700px) {
+  .card {
+    width: 100%; }
+    .card h3 {
+      font-family: "Bree Serif", serif;
+      font-size: 25px; }
+    .card h4 {
+      font-size: 20px; }
+  .questionWord {
+    font-size: 18px;
+    margin-bottom: 2px; }
+  .basicInfo,
+  .eventTime,
+  .eventVenue,
+  .description,
+  .eventDetails {
+    margin-bottom: 8px; }
+  .readMoreBtn {
+    margin-top: 8px; } }
+
+@media (max-width: 700px) {
+  .card h4 {
+    font-size: 18px; } }
 
 footer {
   background-color: #0f0a05;

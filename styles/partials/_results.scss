@@ -25,10 +25,17 @@
 .eventDetails {
     margin-bottom: 15px;
 }
+.description {
+    line-height: 1.28;
+    img {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}
 .truncated {
-    max-height: 350px;
     overflow: hidden;
     text-overflow: ellipsis;
+    // white-space: nowrap;
 }
 .readMoreBtn {
     margin-top: 15px;
@@ -42,10 +49,56 @@
 
 .questionWord {
     font-size: 20px;
+    margin-bottom: 5px;
 }
 .eventTime span {
     color:$accentColor;
 }
-.findMore {
+.findMore a {
     color:$accentColor;
+}
+@media (max-width:1100px) {
+    .card {
+        width: 49%;
+        padding:40px;    
+    }
+}
+@media (max-width:1000px) {
+    .card {
+        padding:20px;
+    }
+    
+}
+@media (max-width:700px) {
+    .card {
+        width: 100%;
+        h3 {
+        font-family: $headerFont;
+        font-size: 25px;
+        
+        }
+        h4 {
+            font-size: 20px;
+        }
+    }
+    .questionWord {
+    font-size: 18px;
+    margin-bottom: 2px;
+    }
+    .basicInfo,
+    .eventTime,
+    .eventVenue,
+    .description,
+    .eventDetails {
+        margin-bottom: 8px;
+    }
+    .readMoreBtn {
+    margin-top: 8px;
+
+    }
+}
+@media (max-width:700px) {
+    .card h4 {
+        font-size: 18px;
+    }
 }

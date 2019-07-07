@@ -106,7 +106,7 @@ app.getUserInput = function() {
 					reqUrl: RESOURCE_ENDPOINT,
 					params: {
 						access_token: app.token,
-						page:5,
+						page:12,
 						fields: "plain_text_no_images_description,photo_album"
 					},
 					xmlToJSON: false,
@@ -151,6 +151,29 @@ app.sweetAlert = function(text) {
 		confirmButtonColor: "#349052"
 	});
 }
+app.upArrowButton = () => {
+	const $upButton = $(".arrowUp");
+	$(window).scroll(() => {
+		if ($(window).scrollTop() > 900) {
+			$upButton.css({
+				display: "block"
+			});
+		} else {
+			$upButton.css({
+				display: "none"
+			});
+		}
+	});
+	$upButton.on("click", function(e) {
+		$("html, body").animate(
+			{
+				scrollTop: $("header").offset().top
+			},
+			1200
+		);
+	});
+};
+
 app.apiCall = async function() {
 	if (app.regexCheck(app.locationInput)) {
 		console.log("both");
@@ -236,8 +259,8 @@ app.apiCallEvents =function (params) {
 }
 app.htmlStringMaking=function (array) {
 	console.log("html String");
-	const $mainPart = $("main");
-	$mainPart.empty();
+	const $wrapper = $(".wrapper");
+	$wrapper.empty();
 	const $resultWrapper = $("<div>").addClass("resultWrapper d-flex flex-row justify-content-between flex-wrap");
 	array.forEach((item, i)=>{
 		const {duration, group, link, local_date, local_time, name}=item;
@@ -342,19 +365,17 @@ app.htmlStringMaking=function (array) {
 		$cardText.append($eventTime, $eventDetails);
 		$card.append($basicInfo, $cardText);
 		$resultWrapper.append($card);
-		$mainPart.append($resultWrapper);
+		$wrapper.append($resultWrapper);
 		// const $link = $(`<a target="_blank" href=${link}>check it on Meetup.com</a>`).addClass("link")
 	})
 }
 
-app.goUp=function () {
-	
-}
 app.init=function () {
-	
+	app.checkOauth();
+	app.getUserInput();
+	app.upArrowButton();
 }
 
 $(function() {
-	app.checkOauth();
-	app.getUserInput();
+	app.init();
 });

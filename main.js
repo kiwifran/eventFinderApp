@@ -32,6 +32,7 @@ app.extractToken = function(hash) {
 //check if the user has authenticated the app  and change the icon respectively
 app.checkOauth = function() {
 	app.token = app.extractToken(document.location.hash);
+	app.documentLoc = document.location;
 	if (app.token) {
 		$("a.connect").html(
 			`<i aria-hidden class="fas fa-sign-out-alt"/> Log Out`
@@ -140,7 +141,7 @@ app.getUserInput = function() {
 				dataType: "json",
 				method: "GET",
 				headers: {
-					"Access-Control-Allow-Origin": "*"
+					"Access-Control-Allow-Origin": app.documentLoc
 				},
 				data: {
 					access_token: app.token,
@@ -194,8 +195,7 @@ app.apiCallLocation = function() {
 	$.ajax({
 		url: LOCATIONS_ENDPOINT,
 		headers: {
-			"Access-Control-Allow-Origin":
-				"https://kiwifran.github.io/eventFinderApp/"
+			"Access-Control-Allow-Origin": app.documentLoc
 		},
 		dataType: "json",
 		method: "GET",
@@ -385,8 +385,7 @@ app.modalCallback = function() {
 			dataType: "json",
 			method: "GET",
 			headers: {
-				"Access-Control-Allow-Origin":
-					"https://kiwifran.github.io/eventFinderApp/"
+				"Access-Control-Allow-Origin": app.documentLoc
 			},
 			data: {
 				group_urlname: urlname,

@@ -133,36 +133,36 @@ app.getUserInput = function() {
 		//empty the search bars after users submit the search form
 		$queryInput.val("");
 		$locationInput.val("");
-		app.checkOauth();
+		// app.checkOauth();
 		//define a parameter object as an app property for the api call towards events endpoints
-		if (app.token) {
-			app.paramsForApiCall = {
-				url: RESOURCE_ENDPOINT,
-				dataType: "json",
-				method: "GET",
-				data: {
-					key: "18569772d776f354c166e3a335b443c",
-					// access_token: app.token,
-					page: 12,
-					fields: "plain_text_no_images_description,photo_album"
-				}
-			};
-			//scroll down the page after the api call brings data back
-			async function scrollDownApi() {
-				const status = await app.apiCall();
-				if (status) {
-					$("html, body").animate(
-						{
-							scrollTop: $("main").offset().top + 10
-						},
-						2000
-					);
-				}
+		// if (app.token) {
+		app.paramsForApiCall = {
+			url: RESOURCE_ENDPOINT,
+			dataType: "json",
+			method: "GET",
+			data: {
+				key: "18569772d776f354c166e3a335b443c",
+				// access_token: app.token,
+				page: 12,
+				fields: "plain_text_no_images_description,photo_album"
 			}
-			scrollDownApi();
-		} else {
-			app.sweetAlert("please log in to use search😓");
+		};
+		//scroll down the page after the api call brings data back
+		async function scrollDownApi() {
+			const status = await app.apiCall();
+			if (status) {
+				$("html, body").animate(
+					{
+						scrollTop: $("main").offset().top + 10
+					},
+					2000
+				);
+			}
 		}
+		scrollDownApi();
+		// } else {
+		// 	app.sweetAlert("please log in to use search😓");
+		// }
 	});
 };
 // check if users' input is empty string or made up by pure spaces

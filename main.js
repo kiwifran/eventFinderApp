@@ -190,19 +190,16 @@ app.apiCall = async function() {
 //call the location endpoints for lon and lat information, then call the events endpoints conditionally
 app.apiCallLocation = function() {
 	$.ajax({
-		url: "http://proxy.hackeryou.com",
+		url: LOCATIONS_ENDPOINT,
 		dataType: "json",
 		method: "GET",
 		data: {
-			reqUrl: LOCATIONS_ENDPOINT,
-			params: {
-				query: app.locationInput,
-				key: "18569772d776f354c166e3a335b443c"
-				// access_token: app.token
-			},
-			xmlToJSON: false,
-			useCache: false
-		}
+			query: app.locationInput,
+			// key: "18569772d776f354c166e3a335b443c"
+			access_token: app.token
+		},
+		xmlToJSON: false,
+		useCache: false
 	})
 		.then(res => {
 			//if the api returns some data, take the first location data and store it in the app object.

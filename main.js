@@ -189,7 +189,7 @@ app.apiCall = async function() {
 };
 //call the location endpoints for lon and lat information, then call the events endpoints conditionally
 app.apiCallLocation = function() {
-	const address = ` https://api.meetup.com/find/locations?query=${app.locationInput}&access_token=${app.token}`
+	const address = `https://api.meetup.com/find/locations?query=${app.locationInput}&access_token=${app.token}`
 	$.ajax({
 		url: LOCATIONS_ENDPOINT,
 		dataType: "json",

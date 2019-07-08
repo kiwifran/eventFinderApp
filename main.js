@@ -133,40 +133,40 @@ app.getUserInput = function() {
 		//empty the search bars after users submit the search form
 		$queryInput.val("");
 		$locationInput.val("");
-		// app.checkOauth();
+		app.checkOauth();
 		//define a parameter object as an app property for the api call towards events endpoints
-		// if (app.token) {
-		app.paramsForApiCall = {
-			url: "http://proxy.hackeryou.com",
-			dataType: "json",
-			method: "GET",
-			data: {
-				reqUrl: RESOURCE_ENDPOINT,
-				params: {
-					page: 12,
-					key: "18569772d776f354c166e3a335b443c"
-					// access_token: app.token,
-				},
-				xmlToJSON: false,
-				useCache: false
-			}
-		};
-		//scroll down the page after the api call brings data back
-		async function scrollDownApi() {
-			const status = await app.apiCall();
-			if (status) {
-				$("html, body").animate(
-					{
-						scrollTop: $("main").offset().top + 10
+		if (app.token) {
+			app.paramsForApiCall = {
+				url: "http://proxy.hackeryou.com",
+				dataType: "json",
+				method: "GET",
+				data: {
+					reqUrl: RESOURCE_ENDPOINT,
+					params: {
+						page: 12,
+						// key: "18569772d776f354c166e3a335b443c"
+						access_token: app.token
 					},
-					2000
-				);
+					xmlToJSON: false,
+					useCache: false
+				}
+			};
+			//scroll down the page after the api call brings data back
+			async function scrollDownApi() {
+				const status = await app.apiCall();
+				if (status) {
+					$("html, body").animate(
+						{
+							scrollTop: $("main").offset().top + 10
+						},
+						2000
+					);
+				}
 			}
+			scrollDownApi();
+		} else {
+			app.sweetAlert("please log in to use search😓");
 		}
-		scrollDownApi();
-		// } else {
-		// 	app.sweetAlert("please log in to use search😓");
-		// }
 	});
 };
 // check if users' input is empty string or made up by pure spaces

@@ -32,7 +32,9 @@ app.extractToken = function(hash) {
 //check if the user has authenticated the app  and change the icon respectively
 app.checkOauth = function() {
 	app.token = app.extractToken(document.location.hash);
-	app.documentLoc = document.location;
+	app.documentLoc = document.location.href;
+	console.log(app.documentLoc);
+	
 	if (app.token) {
 		$("a.connect").html(
 			`<i aria-hidden class="fas fa-sign-out-alt"/> Log Out`
@@ -189,13 +191,12 @@ app.apiCall = async function() {
 };
 //call the location endpoints for lon and lat information, then call the events endpoints conditionally
 app.apiCallLocation = function() {
-	const address = `https://api.meetup.com/find/locations?query=${app.locationInput}&access_token=${app.token}`
 	$.ajax({
 		url: LOCATIONS_ENDPOINT,
 		dataType: "json",
 		method: "GET",
 		headers: {
-			"Access-Control-Allow-Origin": address
+			"Access-Control-Allow-Origin": app.documentLoc
 		},
 		data: {
 			query: app.locationInput,

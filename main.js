@@ -3,7 +3,8 @@ import {
 	CLIENT_ID,
 	AUTHORIZATION_ENDPOINT,
 	RESOURCE_ENDPOINT,
-	LOCATIONS_ENDPOINT
+	LOCATIONS_ENDPOINT,
+	IMAGE_ENDPOINT
 } from "./scripts/apiInfo.js";
 app.locationInfo={};
 app.monthArr = [
@@ -244,7 +245,9 @@ app.apiCallEvents =function (params) {
 	console.log("triggered");
 	
 		$.ajax(params).then(res=>{
-			console.log(res);
+			console.log(res, res.events.length);
+			console.log(res.events.filter(i=> i.status==="upcoming").length);
+			
 			if(res.events.length){
 				const newArray = [...res.events];
 				app.eventsArray=[...newArray];
@@ -388,7 +391,7 @@ app.modalCallback = function () {
 			dataType: "json",
 			method: "GET",
 			data: {
-				reqUrl: `https://api.meetup.com/2/photos`,
+				reqUrl: IMAGE_ENDPOINT,
 				params: {
 					group_urlname:urlname,
 					// access_token: app.token

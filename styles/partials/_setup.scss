@@ -1,25 +1,13 @@
-//Our Thanks to
-//Photo by Zhen Hu on Unsplash for Header Background in search Page
-
+//Thanks to Photo by henry fournier on Unsplash for Header Background
 $white: #fffaf4;
-// $primaryColor: #416bff;
-$secondaryColor:#454d60;
-// $activeColor: #7c9da5;
-$activeColor: #cdcdcd;
-// $activeColor: #f7efd4;
+$accentColorTwo: #cdcdcd;
 $accentColor: #681310;
+$secondaryColor:#454d60;
 $black: #0f0a05;
 
 $headerFont: 'Bree Serif', serif;
 $bodyFont: 'Open Sans', sans-serif;
 
-// @mixin flex($flex-direction, $justify-content, $align-items, $text-align) {
-//     display: flex;
-//     flex-direction: $flex-direction;
-//     justify-content: $justify-content;
-//     align-items: $align-items;
-//     text-align: $text-align;
-// }
 @mixin color($backgroundColor, $fontColor) {
     background-color: $backgroundColor;
     color: $fontColor;
@@ -32,14 +20,6 @@ body {
     @include color($white, $black);
     font-family: $bodyFont;
 }
-
-// ul {
-//   margin: 0;
-//   padding: 0;
-// }
-// li {
-//   list-style: none;
-// }
 
 h1,
 h2 {

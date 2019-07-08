@@ -29,12 +29,9 @@ a.connect {
         margin-bottom: 15px;
     }
     &:focus {
-        background-color: $activeColor;
+        background-color: $accentColorTwo;
     }
 }
-// [type="submit"] {
-    
-// }
 .btn-outline-dark {
     margin-bottom: 10px;
     padding: 7px 12px;

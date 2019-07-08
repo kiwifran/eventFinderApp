@@ -137,18 +137,13 @@ app.getUserInput = function() {
 		//define a parameter object as an app property for the api call towards events endpoints
 		if (app.token) {
 			app.paramsForApiCall = {
-				url: "http://proxy.hackeryou.com",
+				url: RESOURCE_ENDPOINT,
 				dataType: "json",
 				method: "GET",
 				data: {
-					reqUrl: RESOURCE_ENDPOINT,
-					params: {
-						page: 12,
-						// key: "18569772d776f354c166e3a335b443c"
-						access_token: app.token
-					},
-					xmlToJSON: false,
-					useCache: false
+					page: 12,
+					// key: "18569772d776f354c166e3a335b443c"
+					access_token: app.token
 				}
 			};
 			//scroll down the page after the api call brings data back
@@ -184,7 +179,7 @@ app.apiCall = async function() {
 		app.apiCallLocation();
 		//if there is only query input, change the value of the params object and pass the object to ajax call.
 	} else if (app.regexCheck(app.queryInput)) {
-		app.paramsForApiCall.data.params.text = app.queryInput;
+		app.paramsForApiCall.data.text = app.queryInput;
 		app.apiCallEvents(app.paramsForApiCall);
 		//if users haven't typed in anything for location or keyword, call the events endpoint directly, it will return events data based on user' account's location settings and preference
 	} else {
@@ -220,13 +215,13 @@ app.apiCallLocation = function() {
 			//since events endpoints doesn't require lon and lat, even the first api call to location endpoints fails, app can call the events endpoint
 			//if users type in a keyword, change the params object property values.
 			if (app.regexCheck(app.queryInput)) {
-				app.paramsForApiCall.data.params.text = app.queryInput;
-				app.paramsForApiCall.data.params.lon = app.locationInfo.lon;
-				app.paramsForApiCall.data.params.lat = app.locationInfo.lat;
+				app.paramsForApiCall.data.text = app.queryInput;
+				app.paramsForApiCall.data.lon = app.locationInfo.lon;
+				app.paramsForApiCall.data.lat = app.locationInfo.lat;
 				app.apiCallEvents(app.paramsForApiCall);
 			} else {
-				app.paramsForApiCall.data.params.lon = app.locationInfo.lon;
-				app.paramsForApiCall.data.params.lat = app.locationInfo.lat;
+				app.paramsForApiCall.data.lon = app.locationInfo.lon;
+				app.paramsForApiCall.data.lat = app.locationInfo.lat;
 				app.apiCallEvents(app.paramsForApiCall);
 			}
 		})

@@ -139,6 +139,10 @@ app.getUserInput = function() {
 				url: RESOURCE_ENDPOINT,
 				dataType: "json",
 				method: "GET",
+				headers: {
+					"Access-Control-Allow-Origin":
+						"https://kiwifran.github.io/eventFinderApp/"
+				},
 				data: {
 					access_token: app.token,
 					page: 12,
@@ -190,6 +194,10 @@ app.apiCall = async function() {
 app.apiCallLocation = function() {
 	$.ajax({
 		url: LOCATIONS_ENDPOINT,
+		headers: {
+			"Access-Control-Allow-Origin":
+				"https://kiwifran.github.io/eventFinderApp/"
+		},
 		dataType: "json",
 		method: "GET",
 		data: {
@@ -377,6 +385,10 @@ app.modalCallback = function() {
 			url: IMAGE_ENDPOINT,
 			dataType: "json",
 			method: "GET",
+			headers: {
+				"Access-Control-Allow-Origin":
+					"https://kiwifran.github.io/eventFinderApp/"
+			},
 			data: {
 				group_urlname: urlname,
 				page: 20,

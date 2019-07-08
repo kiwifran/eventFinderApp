@@ -32,9 +32,7 @@ app.extractToken = function(hash) {
 //check if the user has authenticated the app  and change the icon respectively
 app.checkOauth = function() {
 	app.token = app.extractToken(document.location.hash);
-	app.documentLoc = document.location.href;
-	console.log(app.documentLoc);
-	
+	app.documentLoc = document.location.href;	
 	if (app.token) {
 		$("a.connect").html(
 			`<i aria-hidden class="fas fa-sign-out-alt"/> Log Out`
@@ -196,7 +194,8 @@ app.apiCallLocation = function() {
 		dataType: "json",
 		method: "GET",
 		headers: {
-			"Access-Control-Allow-Origin": app.documentLoc
+			"Access-Control-Allow-Origin":
+				"https://kiwifran.github.io/eventFinderApp/"
 		},
 		data: {
 			query: app.locationInput,
@@ -205,33 +204,32 @@ app.apiCallLocation = function() {
 		},
 		xmlToJSON: false,
 		useCache: false
+	}).then(res => {
+		//if the api returns some data, take the first location data and store it in the app object.
+		if (res.length) {
+			app.locationInfo = {
+				lon: res[0].lon,
+				lat: res[0].lat
+			};
+		}
+		//since events endpoints doesn't require lon and lat, even the first api call to location endpoints fails, app can call the events endpoint
+		//if users type in a keyword, change the params object property values.
+		if (app.regexCheck(app.queryInput)) {
+			app.paramsForApiCall.data.text = app.queryInput;
+			app.paramsForApiCall.data.lon = app.locationInfo.lon;
+			app.paramsForApiCall.data.lat = app.locationInfo.lat;
+			app.apiCallEvents(app.paramsForApiCall);
+		} else {
+			app.paramsForApiCall.data.lon = app.locationInfo.lon;
+			app.paramsForApiCall.data.lat = app.locationInfo.lat;
+			app.apiCallEvents(app.paramsForApiCall);
+		}
 	})
-		.then(res => {
-			//if the api returns some data, take the first location data and store it in the app object.
-			if (res.length) {
-				app.locationInfo = {
-					lon: res[0].lon,
-					lat: res[0].lat
-				};
-			}
-			//since events endpoints doesn't require lon and lat, even the first api call to location endpoints fails, app can call the events endpoint
-			//if users type in a keyword, change the params object property values.
-			if (app.regexCheck(app.queryInput)) {
-				app.paramsForApiCall.data.text = app.queryInput;
-				app.paramsForApiCall.data.lon = app.locationInfo.lon;
-				app.paramsForApiCall.data.lat = app.locationInfo.lat;
-				app.apiCallEvents(app.paramsForApiCall);
-			} else {
-				app.paramsForApiCall.data.lon = app.locationInfo.lon;
-				app.paramsForApiCall.data.lat = app.locationInfo.lat;
-				app.apiCallEvents(app.paramsForApiCall);
-			}
-		})
-		// .fail(err => {
-		// 	app.sweetAlert(
-		// 		"Sorry, we cannot get data now😢, please retry it later"
-		// 	);
-		// });
+		.fail(err => {
+			app.sweetAlert(
+				"Sorry, we cannot get data now😢, please retry it later"
+			);
+		});
 	return true;
 };
 //call the events endpoint (token needed) and store the data coming back from the api, waiting a parameter object

@@ -134,21 +134,15 @@ app.getUserInput = function() {
 		$locationInput.val("");
 		app.checkOauth();
 		//define a parameter object as an app property for the api call towards events endpoints
-		//blocked by cors so wrap all the api calls in proxy calls
 		if (app.token) {
 			app.paramsForApiCall = {
-				url: "http://proxy.hackeryou.com",
+				url: RESOURCE_ENDPOINT,
 				dataType: "json",
 				method: "GET",
 				data: {
-					reqUrl: RESOURCE_ENDPOINT,
-					params: {
-						access_token: app.token,
-						page: 12,
-						fields: "plain_text_no_images_description,photo_album"
-					},
-					xmlToJSON: false,
-					useCache: false
+					access_token: app.token,
+					page: 12,
+					fields: "plain_text_no_images_description,photo_album"
 				}
 			};
 			//scroll down the page after the api call brings data back
@@ -184,7 +178,7 @@ app.apiCall = async function() {
 		app.apiCallLocation();
 		//if there is only query input, change the value of the params object and pass the object to ajax call.
 	} else if (app.regexCheck(app.queryInput)) {
-		app.paramsForApiCall.data.params.text = app.queryInput;
+		app.paramsForApiCall.data.text = app.queryInput;
 		app.apiCallEvents(app.paramsForApiCall);
 		//if users haven't typed in anything for location or keyword, call the events endpoint directly, it will return events data based on user' account's location settings and preference
 	} else {
@@ -195,16 +189,12 @@ app.apiCall = async function() {
 //call the location endpoints for lon and lat information, then call the events endpoints conditionally
 app.apiCallLocation = function() {
 	$.ajax({
-		url: "http://proxy.hackeryou.com",
+		url: LOCATIONS_ENDPOINT,
 		dataType: "json",
 		method: "GET",
 		data: {
-			reqUrl: LOCATIONS_ENDPOINT,
-			params: {
-				query: app.locationInput
-			},
-			xmlToJSON: false,
-			useCache: false
+			query: app.locationInput,
+			access_token: app.token
 		}
 	})
 		.then(res => {
@@ -218,13 +208,13 @@ app.apiCallLocation = function() {
 			//since events endpoints doesn't require lon and lat, even the first api call to location endpoints fails, app can call the events endpoint
 			//if users type in a keyword, change the params object property values.
 			if (app.regexCheck(app.queryInput)) {
-				app.paramsForApiCall.data.params.text = app.queryInput;
-				app.paramsForApiCall.data.params.lon = app.locationInfo.lon;
-				app.paramsForApiCall.data.params.lat = app.locationInfo.lat;
+				app.paramsForApiCall.data.text = app.queryInput;
+				app.paramsForApiCall.data.lon = app.locationInfo.lon;
+				app.paramsForApiCall.data.lat = app.locationInfo.lat;
 				app.apiCallEvents(app.paramsForApiCall);
 			} else {
-				app.paramsForApiCall.data.params.lon = app.locationInfo.lon;
-				app.paramsForApiCall.data.params.lat = app.locationInfo.lat;
+				app.paramsForApiCall.data.lon = app.locationInfo.lon;
+				app.paramsForApiCall.data.lat = app.locationInfo.lat;
 				app.apiCallEvents(app.paramsForApiCall);
 			}
 		})
@@ -384,17 +374,13 @@ app.modalCallback = function() {
 	$(document).on("show.bs.modal", ".modal", function(e) {
 		const { urlname, groupname, modalnum } = $(this).data();
 		$.ajax({
-			url: "http://proxy.hackeryou.com",
+			url: IMAGE_ENDPOINT,
 			dataType: "json",
 			method: "GET",
 			data: {
-				reqUrl: IMAGE_ENDPOINT,
-				params: {
-					group_urlname: urlname,
-					page: 20
-				},
-				xmlToJSON: false,
-				useCache: false
+				group_urlname: urlname,
+				page: 20,
+				access_token: app.token
 			}
 		})
 			.then(res => {

@@ -1,64 +1,65 @@
 header {
-    background-image: url('../../assets/headerBackground.jpg');
-    background-position: center center;
-    background-size: cover;
-    height:calc(100vh - 50px);
-
+	background-image: url("../../assets/headerBackground.jpg");
+	background-position: center center;
+	background-size: cover;
+	height: calc(100vh - 50px);
 }
 .headerContent {
-    width: 80%;
-    padding:25px;
-    background: rgba(255, 255, 255, 0.7);
+	width: 80%;
+	padding: 25px;
+	background: rgba(255, 255, 255, 0.7);
+	p,
+	[type="text"] {
+		font-size: 21px;
+	}
 }
 h1 {
-    font-size: 70px;
+	font-size: 70px;
 }
-
 a.connect {
-    font-size: 30px;
-    &:hover {
-        color:$secondaryColor;
-    }
+	font-size: 30px;
+	&:hover {
+		color: $secondaryColor;
+	}
 }
 .textInput input {
-    border:none;
-    border-bottom: 1px solid $secondaryColor;
-    padding: 5px 3px;
-    background-color:inherit;
-    &:first-of-type {
-        margin-bottom: 15px;
-    }
-    &:focus {
-        background-color: $accentColorTwo;
-    }
+	border: none;
+	border-bottom: 1px solid $secondaryColor;
+	padding: 5px 3px;
+	background-color: inherit;
+	&:first-of-type {
+		margin-bottom: 15px;
+	}
+	&:focus {
+		background-color: $accentColorTwo;
+	}
 }
 .btn-outline-dark {
-    margin-bottom: 10px;
-    padding: 7px 12px;
-    &:hover {
-        @include color($black, $white);
-        border-color:$black;
-    }
+	margin-bottom: 10px;
+	padding: 7px 12px;
+	&:hover {
+		@include color($black, $white);
+		border-color: $black;
+	}
 }
-@media (max-width:620px) {
-    h1 {
-        line-height: 1;
-        font-size: 50px;
-    }
+@media (max-width: 620px) {
+	h1 {
+		line-height: 1;
+		font-size: 50px;
+	}
 }
-@media (max-width:500px) {
-    .headerContent {
-        width: 90%;
-        padding: 15px;
-        p,
-        [type="text"]{
-            font-size: 18px;
-        }
-    }
+@media (max-width: 500px) {
+	.headerContent {
+		width: 90%;
+		padding: 15px;
+		p,
+		[type="text"] {
+			font-size: 18px;
+		}
+	}
 }
-@media (max-width:400px) {
-    .textInput input {
-
-        width: 85%;
-    }
+@media (max-width: 400px) {
+	.textInput input {
+		width: 85%;
+	}
 }

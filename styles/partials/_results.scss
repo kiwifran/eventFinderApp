@@ -1,140 +1,119 @@
 .resultWrapper {
-    max-width: 1600px;
-    margin: 0 auto;
-    padding:40px 3%;
+	margin: 0 auto;
+	padding: 40px 3%;
 }
 .card {
-    width:31%;
-    padding:20px;
-    margin-bottom: 25px;
-    h3 {
-        font-family: $headerFont;
-        font-size: 30px;
-        
-    }
-    h4 {
-        font-size: 22px;
-    }
-    
+	width: 31%;
+	padding: 20px;
+	margin-bottom: 25px;
+	h3 {
+		font-size: 30px;
+	}
+	h4 {
+		font-size: 22px;
+	}
 }
-
 .basicInfo,
 .eventTime,
 .eventVenue,
 .description,
 .eventDetails {
-    margin-bottom: 15px;
+	margin-bottom: 15px;
 }
 .description {
-    line-height: 1.28;
-}
-.truncated {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    // white-space: nowrap;
-}
-.readMoreBtn {
-    margin-top: 15px;
-    &:nth-of-type(1) {
-        margin-right: 10px;
-    }
-}
-.questionWord,
-.eventTime span {
-    font-family: $headerFont;
+	line-height: 1.28;
 }
 
-.questionWord {
-    font-size: 20px;
-    margin-bottom: 5px;
+.readMoreBtn {
+	margin-top: 15px;
+	&:first-of-type {
+		margin-right: 10px;
+	}
 }
-.eventTime span {
-    color:$accentColor;
+.questionWord {
+	margin-bottom: 5px;
+	font-size: 20px;
+}
+.eventTime span,
+.findMore a,
+.modal a {
+	color: $accentColor;
 }
 .findMore a,
 .modal a {
-    color:$accentColor;
-    &:hover {
-        color:$secondaryColor;
-    }
+	&:hover {
+		color: $secondaryColor;
+	}
 }
 .modal {
-    h5 {
-    font-family: $headerFont;
-    }
-    p {
-        word-wrap: break-word;
-    }
-    img{
-        margin-left:  auto;
-        margin-right: auto;
-        width: 80%;
-        max-width: 80%;
-    }
+	p {
+		word-wrap: break-word;
+	}
+	img {
+		margin-left: auto;
+		margin-right: auto;
+		width: 80%;
+		max-width: 80%;
+	}
 }
 .arrowUp {
-    @include color(inherit,$secondaryColor);
-    position: fixed;
-    display: none;
-    right: 20px;
-    bottom: 30px;
-    font-size: 40px;
-    opacity: 1;
-    transition: all 0.5s;
-    &:hover {
-        transform: scale(1.25);
-    }
+	@include color(inherit, $secondaryColor);
+	position: fixed;
+	display: none;
+	right: 20px;
+	bottom: 30px;
+	font-size: 40px;
+	opacity: 1;
+	transition: all 0.5s;
+	&:hover {
+		transform: scale(1.25);
+	}
 }
-@media (max-width:1100px) {
-    .card {
-        width: 49%;
-        padding:40px;    
-    }
+@media (max-width: 1100px) {
+	.card {
+		width: 49%;
+		padding: 40px;
+	}
 }
-@media (max-width:1000px) {
-    .card {
-        padding:20px;
-    }
-    
+@media (max-width: 1000px) {
+	.card {
+		padding: 20px;
+	}
 }
-@media (max-width:700px) {
-    .card {
-        width: 100%;
-        h3 {
-        font-family: $headerFont;
-        font-size: 25px;
-        
-        }
-        h4 {
-            font-size: 20px;
-        }
-    }
-    .questionWord {
-    font-size: 18px;
-    margin-bottom: 2px;
-    }
-    .basicInfo,
-    .eventTime,
-    .eventVenue,
-    .description,
-    .eventDetails {
-        margin-bottom: 8px;
-    }
-    .readMoreBtn {
-    margin-top: 8px;
-    }
+@media (max-width: 700px) {
+	.card {
+		width: 100%;
+		h3 {
+			font-size: 25px;
+		}
+		h4 {
+			font-size: 20px;
+		}
+	}
+	.questionWord {
+		margin-bottom: 2px;
+	}
+	.basicInfo,
+	.eventTime,
+	.eventVenue,
+	.description,
+	.eventDetails {
+		margin-bottom: 8px;
+	}
+	.readMoreBtn {
+		margin-top: 8px;
+	}
 }
-@media (max-width:600px) {
-    .card h4 {
-        font-size: 18px;
-    }
-    .modal p {
-        line-height: 1.15;
-
-    }
-    .arrowUp  {
-        right: 5px;
-        bottom: 15px;
-        font-size: 30px;
-    }
+@media (max-width: 600px) {
+	.card h4 {
+		font-size: 18px;
+	}
+	.modal p {
+		line-height: 1.15;
+	}
+	.arrowUp {
+		right: 5px;
+		bottom: 15px;
+		font-size: 30px;
+	}
 }

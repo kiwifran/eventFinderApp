@@ -1,12 +1,12 @@
 footer {
-    @include color($black, $white);
-    text-align: center;
-    height: 50px;
-    padding: 5px 0;
-    p {
-        line-height: 1;
-    }
-    a:hover {
-    color:$accentColorTwo;
-  }
+	@include color($black, $white);
+	height: 50px;
+	padding: 5px 0;
+	text-align: center;
+	p {
+		line-height: 1;
+	}
+	a:hover {
+		color: $accentColorTwo;
+	}
 }

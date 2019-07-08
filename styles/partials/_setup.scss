@@ -1,47 +1,57 @@
 //Thanks to Photo by henry fournier on Unsplash for Header Background
+//colors
 $white: #fffaf4;
 $accentColorTwo: #cdcdcd;
 $accentColor: #681310;
-$secondaryColor:#454d60;
+$secondaryColor: #454d60;
 $black: #0f0a05;
-
-$headerFont: 'Bree Serif', serif;
-$bodyFont: 'Open Sans', sans-serif;
-
+//fonts
+$headerFont: "Bree Serif", serif;
+$bodyFont: "Open Sans", sans-serif;
+//color mixin
 @mixin color($backgroundColor, $fontColor) {
-    background-color: $backgroundColor;
-    color: $fontColor;
+	background-color: $backgroundColor;
+	color: $fontColor;
 }
 html {
-    font-size: 18px;
+	font-size: 18px;
 }
-
 body {
-    @include color($white, $black);
-    font-family: $bodyFont;
+	@include color($white, $black);
+	font-family: $bodyFont;
 }
-
 h1,
-h2 {
-    font-family: $headerFont;
+h3,
+h5,
+.questionWord,
+.eventTime span {
+	font-family: $headerFont;
 }
 p {
-    margin: 0;
+	margin: 0;
 }
-
 a {
-    text-decoration: none;
-    color: inherit;
+	text-decoration: none;
+	color: inherit;
 }
 
 img {
-    width: 50%;
-    max-width: 50%;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-    display: block;
+	width: 50%;
+	max-width: 50%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-radius: 10px;
+	display: block;
 }
-.visuallyHidden:not(:focus):not(:active) { position: absolute; width: 1px; height: 1px; margin: -1px;border: 0;padding: 0;white-space: nowrap;clip-path: inset(100%);clip: rect(00 0 0);overflow: hidden;}
-
-
+.visuallyHidden:not(:focus):not(:active) {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	border: 0;
+	padding: 0;
+	white-space: nowrap;
+	clip-path: inset(100%);
+	clip: rect(00 0 0);
+	overflow: hidden;
+}

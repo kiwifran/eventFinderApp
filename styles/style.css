@@ -7,7 +7,10 @@ body {
   font-family: "Open Sans", sans-serif; }
 
 h1,
-h2 {
+h3,
+h5,
+.questionWord,
+.eventTime span {
   font-family: "Bree Serif", serif; }
 
 p {
@@ -48,6 +51,9 @@ header {
   width: 80%;
   padding: 25px;
   background: rgba(255, 255, 255, 0.7); }
+  .headerContent p,
+  .headerContent [type="text"] {
+    font-size: 21px; }
 
 h1 {
   font-size: 70px; }
@@ -93,7 +99,6 @@ a.connect {
     width: 85%; } }
 
 .resultWrapper {
-  max-width: 1600px;
   margin: 0 auto;
   padding: 40px 3%; }
 
@@ -102,7 +107,6 @@ a.connect {
   padding: 20px;
   margin-bottom: 25px; }
   .card h3 {
-    font-family: "Bree Serif", serif;
     font-size: 30px; }
   .card h4 {
     font-size: 22px; }
@@ -117,36 +121,23 @@ a.connect {
 .description {
   line-height: 1.28; }
 
-.truncated {
-  overflow: hidden;
-  -o-text-overflow: ellipsis;
-  text-overflow: ellipsis; }
-
 .readMoreBtn {
   margin-top: 15px; }
-  .readMoreBtn:nth-of-type(1) {
+  .readMoreBtn:first-of-type {
     margin-right: 10px; }
 
-.questionWord,
-.eventTime span {
-  font-family: "Bree Serif", serif; }
-
 .questionWord {
-  font-size: 20px;
-  margin-bottom: 5px; }
+  margin-bottom: 5px;
+  font-size: 20px; }
 
-.eventTime span {
-  color: #681310; }
-
+.eventTime span,
 .findMore a,
 .modal a {
   color: #681310; }
-  .findMore a:hover,
-  .modal a:hover {
-    color: #454d60; }
 
-.modal h5 {
-  font-family: "Bree Serif", serif; }
+.findMore a:hover,
+.modal a:hover {
+  color: #454d60; }
 
 .modal p {
   word-wrap: break-word; }
@@ -187,12 +178,10 @@ a.connect {
   .card {
     width: 100%; }
     .card h3 {
-      font-family: "Bree Serif", serif;
       font-size: 25px; }
     .card h4 {
       font-size: 20px; }
   .questionWord {
-    font-size: 18px;
     margin-bottom: 2px; }
   .basicInfo,
   .eventTime,
@@ -216,9 +205,9 @@ a.connect {
 footer {
   background-color: #0f0a05;
   color: #fffaf4;
-  text-align: center;
   height: 50px;
-  padding: 5px 0; }
+  padding: 5px 0;
+  text-align: center; }
   footer p {
     line-height: 1; }
   footer a:hover {

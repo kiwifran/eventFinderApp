@@ -138,7 +138,7 @@ app.getUserInput = function() {
 		if (app.token) {
 			app.paramsForApiCall = {
 				url: RESOURCE_ENDPOINT,
-				dataType: "jsonp",
+				dataType: "json",
 				method: "GET",
 				data: {
 					page: 12,
@@ -189,10 +189,14 @@ app.apiCall = async function() {
 };
 //call the location endpoints for lon and lat information, then call the events endpoints conditionally
 app.apiCallLocation = function() {
+	const address = ` https://api.meetup.com/find/locations?query=${app.locationInput}&access_token=${app.token}`
 	$.ajax({
 		url: LOCATIONS_ENDPOINT,
 		dataType: "json",
 		method: "GET",
+		headers: {
+			"Access-Control-Allow-Origin": address
+		},
 		data: {
 			query: app.locationInput,
 			// key: "18569772d776f354c166e3a335b443c"

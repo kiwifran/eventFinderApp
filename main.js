@@ -194,8 +194,8 @@ app.apiCallLocation = function() {
 		dataType: "json",
 		method: "GET",
 		headers: {
-			"Access-Control-Allow-Origin":
-				"https://kiwifran.github.io/eventFinderApp/"
+			'Access-Control-Allow-Origin':
+				'https://kiwifran.github.io/eventFinderApp/'
 		},
 		data: {
 			query: app.locationInput,

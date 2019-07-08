@@ -138,7 +138,7 @@ app.getUserInput = function() {
 		if (app.token) {
 			app.paramsForApiCall = {
 				url: RESOURCE_ENDPOINT,
-				dataType: "json",
+				dataType: "jsonp",
 				method: "GET",
 				data: {
 					page: 12,

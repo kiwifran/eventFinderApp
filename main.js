@@ -227,11 +227,11 @@ app.apiCallLocation = function() {
 				app.apiCallEvents(app.paramsForApiCall);
 			}
 		})
-		.fail(err => {
-			app.sweetAlert(
-				"Sorry, we cannot get data now😢, please retry it later"
-			);
-		});
+		// .fail(err => {
+		// 	app.sweetAlert(
+		// 		"Sorry, we cannot get data now😢, please retry it later"
+		// 	);
+		// });
 	return true;
 };
 //call the events endpoint (token needed) and store the data coming back from the api, waiting a parameter object

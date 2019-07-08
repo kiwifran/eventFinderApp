@@ -140,6 +140,10 @@ app.getUserInput = function() {
 				url: RESOURCE_ENDPOINT,
 				dataType: "json",
 				method: "GET",
+				headers: {
+					'Access-Control-Allow-Origin':
+						'https://kiwifran.github.io/eventFinderApp/'
+				},
 				data: {
 					page: 12,
 					// key: "18569772d776f354c166e3a335b443c"

@@ -316,11 +316,13 @@ app.htmlStringMaking=function (array) {
 						"<p class='questionWord'>What to do</p>"
 					);;
 				const $readMoreBtn = $(
-					"<button>Read More</button>"
+					`<button type='button'>Read More</button>`
 				).addClass(
 					"readMoreBtn btn btn-outline-secondary"
-				);
-				
+				).attr({
+					"data-toggle":"modal",
+					"data-target":`#detailModal${i}`
+				})
 				$eventDetails.append($description, $readMoreBtn)
 
 				
@@ -359,12 +361,32 @@ app.htmlStringMaking=function (array) {
 			item.venue === undefined &&
 			item.description === undefined
 		) {
-			const $findMore = $(`<p>More details about the event is available for the group members only. Please find more infomation on <a target="_blank" href="${link}">Meetup.com</a></p>`).addClass("findMore")
+			const $findMore = $(`<p>More details about the event are only available for the group members. Please find more infomation on <a target="_blank" href="${link}">Meetup.com</a></p>`).addClass("findMore")
 			$eventDetails.append($findMore);
 		}
 		$cardText.append($eventTime, $eventDetails);
 		$card.append($basicInfo, $cardText);
-		$resultWrapper.append($card);
+		const $detailModal = $(
+			`<div class="modal fade w-80" id="detailModal${i}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">`
+		);
+		const modalHtmlString = `<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">${name}</h5>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											${item.description}
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+										</div>
+									</div>
+								</div>`;
+		$detailModal.append(modalHtmlString);
+		$resultWrapper.append($card, $detailModal);
 		$wrapper.append($resultWrapper);
 		// const $link = $(`<a target="_blank" href=${link}>check it on Meetup.com</a>`).addClass("link")
 	})

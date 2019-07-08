@@ -126,8 +126,7 @@ a.connect {
   text-overflow: ellipsis; }
 
 .readMoreBtn {
-  margin-top: 15px;
-  color: #0f0a05; }
+  margin-top: 15px; }
 
 .questionWord,
 .eventTime span {
@@ -142,6 +141,12 @@ a.connect {
 
 .findMore a {
   color: #681310; }
+
+.modal h5 {
+  font-family: "Bree Serif", serif; }
+
+.modal p {
+  word-wrap: break-word; }
 
 .arrowUp {
   background-color: inherit;
@@ -189,9 +194,11 @@ a.connect {
   .readMoreBtn {
     margin-top: 8px; } }
 
-@media (max-width: 700px) {
+@media (max-width: 600px) {
   .card h4 {
     font-size: 18px; }
+  .modal p {
+    line-height: 1.15; }
   .arrowUp {
     right: 5px;
     bottom: 15px;

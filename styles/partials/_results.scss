@@ -40,8 +40,6 @@
 }
 .readMoreBtn {
     margin-top: 15px;
-    color:$black;
-
 }
 .questionWord,
 .eventTime span {
@@ -57,6 +55,12 @@
 }
 .findMore a {
     color:$accentColor;
+}
+.modal h5 {
+    font-family: $headerFont;
+}
+.modal p {
+        word-wrap: break-word;
 }
 .arrowUp {
     @include color(inherit,$secondaryColor);
@@ -110,9 +114,13 @@
     margin-top: 8px;
     }
 }
-@media (max-width:700px) {
+@media (max-width:600px) {
     .card h4 {
         font-size: 18px;
+    }
+    .modal p {
+        line-height: 1.15;
+
     }
     .arrowUp  {
         right: 5px;

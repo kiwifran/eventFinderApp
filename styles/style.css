@@ -104,8 +104,6 @@ a.connect {
     font-size: 30px; }
   .card h4 {
     font-size: 22px; }
-  .card a:hover {
-    color: #454d60; }
 
 .basicInfo,
 .eventTime,
@@ -127,6 +125,8 @@ a.connect {
 
 .readMoreBtn {
   margin-top: 15px; }
+  .readMoreBtn:nth-of-type(1) {
+    margin-right: 10px; }
 
 .questionWord,
 .eventTime span {
@@ -139,8 +139,12 @@ a.connect {
 .eventTime span {
   color: #681310; }
 
-.findMore a {
+.findMore a,
+.modal a {
   color: #681310; }
+  .findMore a:hover,
+  .modal a:hover {
+    color: #454d60; }
 
 .modal h5 {
   font-family: "Bree Serif", serif; }

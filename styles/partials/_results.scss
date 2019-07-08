@@ -15,10 +15,9 @@
     h4 {
         font-size: 22px;
     }
-    a:hover {
-        color:$secondaryColor;
-    }
+    
 }
+
 .basicInfo,
 .eventTime,
 .eventVenue,
@@ -40,6 +39,9 @@
 }
 .readMoreBtn {
     margin-top: 15px;
+    &:nth-of-type(1) {
+        margin-right: 10px;
+    }
 }
 .questionWord,
 .eventTime span {
@@ -53,8 +55,12 @@
 .eventTime span {
     color:$accentColor;
 }
-.findMore a {
+.findMore a,
+.modal a {
     color:$accentColor;
+    &:hover {
+        color:$secondaryColor;
+    }
 }
 .modal h5 {
     font-family: $headerFont;

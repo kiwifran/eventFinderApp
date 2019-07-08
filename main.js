@@ -145,10 +145,10 @@ app.regexCheck = function (string) {
 app.sweetAlert = function(text) {
 	Swal.fire({
 		title: "oops",
-		background: "#ffe438",
+		background: "#fffaf4",
 		text: text,
 		confirmButtonText: "OK",
-		confirmButtonColor: "#349052"
+		confirmButtonColor: "#0f0a05"
 	});
 }
 app.upArrowButton = () => {
@@ -254,8 +254,8 @@ app.apiCallEvents =function (params) {
 				app.sweetAlert("no events there...maybe check your input please😓")
 			}
 		}).fail(err=>{
-			console.log(err);
-		})
+			app.sweetAlert("Sorry, we cannot get data now😢, please retry it later");	
+			})
 }
 app.htmlStringMaking=function (array) {
 	console.log("html String");
@@ -263,7 +263,7 @@ app.htmlStringMaking=function (array) {
 	$wrapper.empty();
 	const $resultWrapper = $("<div>").addClass("resultWrapper d-flex flex-row justify-content-between flex-wrap");
 	array.forEach((item, i)=>{
-		const {duration, group, link, local_date, local_time, name}=item;
+		const {duration, group, id, link, local_date, local_time, name}=item;
 		const $card = $("<div>").addClass("card");
 		const $basicInfo = $("<div>").addClass("basicInfo");
 		const $cardText= $("<div>").addClass("card-text");		
@@ -332,43 +332,28 @@ app.htmlStringMaking=function (array) {
 				).prepend("<p class='questionWord'>What to do</p>");
 				$eventDetails.append($description);
 			}
+			const $registerBtn = $(
+				`<a target="_blank" href="${link}">Register It</a>`
+			).addClass("readMoreBtn btn btn-outline-info");
+			$eventDetails.append($registerBtn);
 
 		}
-		// if (
-		// 	item.visibility === "public" &&
-		// 	item.venue !== undefined &&
-		// 	item["description"]!==undefined
-		// ) {
-			
-		// 		} else if (
-		// 			item.visibility === "public" &&
-		// 			item["plain_text_no_images_description"] !==
-		// 				undefined
-		// 		) {
-		// 			const $description = $(
-		// 				`<p>${
-		// 					item[
-		// 						"plain_text_no_images_description"
-		// 					]
-		// 				}</p>`
-		// 			).addClass("description");
-		// 			$eventDetails.append(
-		// 				$description
-		// 			);
-		// 		}
 		if (
 			item.visibility === "public_limited" &&
 			item.venue === undefined &&
 			item.description === undefined
 		) {
-			const $findMore = $(`<p>More details about the event are only available for the group members. Please find more infomation on <a target="_blank" href="${link}">Meetup.com</a></p>`).addClass("findMore")
+			const $findMore = $(`<p>More details about the event are only available for the group members. Please find more infomation at <a target="_blank" href="${link}">Meetup.com</a></p>`).addClass("findMore")
 			$eventDetails.append($findMore);
 		}
 		$cardText.append($eventTime, $eventDetails);
 		$card.append($basicInfo, $cardText);
 		const $detailModal = $(
 			`<div class="modal fade w-80" id="detailModal${i}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">`
-		);
+		).attr({
+			"data-urlname":`${group.urlname}`,
+			"data-id":`${id}`
+		})
 		const modalHtmlString = `<div class="modal-dialog" role="document">
 									<div class="modal-content">
 										<div class="modal-header">
@@ -388,15 +373,45 @@ app.htmlStringMaking=function (array) {
 		$detailModal.append(modalHtmlString);
 		$resultWrapper.append($card, $detailModal);
 		$wrapper.append($resultWrapper);
-		// const $link = $(`<a target="_blank" href=${link}>check it on Meetup.com</a>`).addClass("link")
 	})
 }
 app.modalCallback = function () {
 	$(document).on('show.bs.modal', '.modal', function(e) {
 		console.log("modal fired");
-
+		const {urlname, id} = $(this).data();
+		console.log(urlname, id);
+		
+		$.ajax({
+		url: "http://proxy.hackeryou.com",
+		dataType: "json",
+		method: "GET",
+		data: {
+			reqUrl: `https://api.meetup.com/${urlname}/events/${id}/photos`,
+			params: {
+				// query: app.locationInput,
+				access_token: app.token
+			},
+			xmlToJSON: false,
+			useCache: false
+		}
+		}).then(res => {
+			console.log(res);
+			// if (res.length) {
+			// 	app.locationInfo = {
+			// 		lon:res[0].lon,
+			// 		lat:res[0].lat
+			// 	};
+			// 	console.log(app.locationInfo, (typeof(app.locationInfo.lon)));
+				
+			// 	console.log(app.locationInfo.lon, app.locationInfo.lat);
+				
+			// }
+		}).fail(err=>{
+			console.log("picture api call", err);
+			
+		})
 	})
-	}
+}
 app.init=function () {
 	app.checkOauth();
 	app.getUserInput();

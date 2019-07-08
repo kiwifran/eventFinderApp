@@ -351,8 +351,9 @@ app.htmlStringMaking=function (array) {
 		const $detailModal = $(
 			`<div class="modal fade w-80" id="detailModal${i}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">`
 		).attr({
-			"data-urlname":`${group.urlname}`,
-			"data-id":`${id}`
+			"data-urlname":group.urlname,
+			"data-groupname":group.name,
+			"data-modalnum":i
 		})
 		const modalHtmlString = `<div class="modal-dialog" role="document">
 									<div class="modal-content">
@@ -363,6 +364,7 @@ app.htmlStringMaking=function (array) {
 											</button>
 										</div>
 										<div class="modal-body">
+											<div class="groupImgWrapper"></div>
 											${item.description}
 										</div>
 										<div class="modal-footer">
@@ -378,38 +380,35 @@ app.htmlStringMaking=function (array) {
 app.modalCallback = function () {
 	$(document).on('show.bs.modal', '.modal', function(e) {
 		console.log("modal fired");
-		const {urlname, id} = $(this).data();
-		console.log(urlname, id);
+		console.log($(this).data());
 		
+		const {urlname, groupname, modalnum} = $(this).data();		
 		$.ajax({
-		url: "http://proxy.hackeryou.com",
-		dataType: "json",
-		method: "GET",
-		data: {
-			reqUrl: `https://api.meetup.com/${urlname}/events/${id}/photos`,
-			params: {
-				// query: app.locationInput,
-				access_token: app.token
-			},
-			xmlToJSON: false,
-			useCache: false
-		}
-		}).then(res => {
-			console.log(res);
-			// if (res.length) {
-			// 	app.locationInfo = {
-			// 		lon:res[0].lon,
-			// 		lat:res[0].lat
-			// 	};
-			// 	console.log(app.locationInfo, (typeof(app.locationInfo.lon)));
-				
-			// 	console.log(app.locationInfo.lon, app.locationInfo.lat);
-				
-			// }
-		}).fail(err=>{
-			console.log("picture api call", err);
-			
+			url: "http://proxy.hackeryou.com",
+			dataType: "json",
+			method: "GET",
+			data: {
+				reqUrl: `https://api.meetup.com/2/photos`,
+				params: {
+					group_urlname:urlname,
+					// access_token: app.token
+					page:20,
+				},
+				xmlToJSON: false,
+				useCache: false
+			}
 		})
+			.then(res => {
+				console.log(res);
+				if(res.results.length) {
+					const imgLink = res.results[0]["highres_link"];
+					const $imgForGroup = $(`<img src="${imgLink}" alt="picture of the organizer group ${groupname}"/>`);
+					$(`#detailModal${modalnum} .groupImgWrapper`).html($imgForGroup);
+				}
+			})
+			.fail(err => {
+				console.log("picture api call", err);
+			});
 	})
 }
 app.init=function () {

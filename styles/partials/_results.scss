@@ -27,10 +27,6 @@
 }
 .description {
     line-height: 1.28;
-    img {
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
 }
 .truncated {
     overflow: hidden;
@@ -62,11 +58,19 @@
         color:$secondaryColor;
     }
 }
-.modal h5 {
+.modal {
+     h5 {
     font-family: $headerFont;
-}
-.modal p {
+    }
+    p {
         word-wrap: break-word;
+    }
+    img{
+        margin-left:  auto;
+        margin-right: auto;
+        width: 80%;
+        max-width: 80%;
+    }
 }
 .arrowUp {
     @include color(inherit,$secondaryColor);

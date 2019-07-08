@@ -391,11 +391,17 @@ app.htmlStringMaking=function (array) {
 		// const $link = $(`<a target="_blank" href=${link}>check it on Meetup.com</a>`).addClass("link")
 	})
 }
+app.modalCallback = function () {
+	$(document).on('show.bs.modal', '.modal', function(e) {
+		console.log("modal fired");
 
+	})
+	}
 app.init=function () {
 	app.checkOauth();
 	app.getUserInput();
 	app.upArrowButton();
+	app.modalCallback();
 }
 
 $(function() {

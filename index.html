@@ -1,50 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./styles/style.css">
-    <title>Document</title>
-</head>
-<body>
-    <header>
-        <div class=" wrapper headerContent">
-            <div class="headerTitle">
-                <h1>Events Finder</h1>
-            </div>
-            <div class="headerDescription">
-                <p>Can you guess the correct price of these items sold at Walmart in Canadian Dollars without going over?
-                </p>
-                <a href="" class="connect"></a>
-            </div>
-            <div class="inputWrapper">
-                <form class="userInput" action="">
-                    <div class="textInput">
-                        <input type="text" id="queryInput" name="queryInput" placeholder="Search Keyword(optional)" >
-                        <label for="query" class="visuallyHidden">Search Keyword(optional)</label>
-                    </div>
-                    <div class="textInput">
-                        <input type="text" id="locationInput" name="locationInput" placeholder="Location(optional)">
-                        <label for="locationInput" class="visuallyHidden">Location(optional)</label>
-                    </div>
-                    <label for="submitSearch" class="visuallyHidden">submitSearch</label>
-                    <input class="submitButton" type="submit" value="submitSearch" id="submitSearch">
-                </form>
-            </div>
-        </div>
-    </header>
-    <main>
-        <div class="resultWrapper"></div>
-    </main>
-    <footer>
-        <p>
-            <p>Powered! by Meetup API</p>
-            <P>&copy;Frankie Wang</P>
-        </p>
-    </footer>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-    <script type="module" src="main.js"></script>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+			integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+			crossorigin="anonymous"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css?family=Bree+Serif|Open+Sans&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="./styles/style.css" />
+		<title>Event Finder</title>
+	</head>
+	<body>
+		<header class="d-flex flex-column justify-content-center ">
+			<div
+				class="headerContent rounded-lg d-flex mx-auto flex-column justify-content-center text-center"
+			>
+				<div class="headerTitle">
+					<h1>Events Finder</h1>
+				</div>
+				<div class="headerDescription">
+					<p>
+						Type in your keywords and place names to discover some
+						great events!🙌
+					</p>
+					<a href="" class="connect"></a>
+				</div>
+				<div class="inputWrapper">
+					<form class="userInput" action="">
+						<div class="textInput mx-auto">
+							<input
+								class="rounded-sm"
+								type="text"
+								id="queryInput"
+								name="queryInput"
+								placeholder="Keyword(optional)"
+							/>
+							<label for="queryInput" class="visuallyHidden"
+								>Event Keyword(optional)</label
+							>
+						</div>
+						<div class="textInput mx-auto">
+							<input
+								class="rounded-sm"
+								type="text"
+								id="locationInput"
+								name="locationInput"
+								placeholder="Location(optional)"
+							/>
+							<label for="locationInput" class="visuallyHidden"
+								>Location(optional)</label
+							>
+						</div>
+						<label for="submitSearch" class="visuallyHidden"
+							>Submit the search</label
+						>
+						<input
+							class="submitButton btn btn-outline-dark rounded-sm"
+							type="submit"
+							value="Search"
+							id="submitSearch"
+						/>
+					</form>
+				</div>
+			</div>
+		</header>
+		<main>
+			<div class="wrapper"></div>
+			<button aria-label="go up to the menu" class="arrowUp border-0">
+				<i aria-hidden class="fas fa-chevron-circle-up"></i>
+			</button>
+		</main>
+		<footer>
+			<p>
+				Powered! by
+				<a target="_blank" href="https://www.meetup.com/meetup_api/"
+					>Meetup API</a
+				>
+			</p>
+			<P>&copy;Frankie Wang</P>
+		</footer>
+		<script
+			src="https://code.jquery.com/jquery-3.4.1.min.js"
+			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+			integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+			integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+			crossorigin="anonymous"
+		></script>
+		<script src="https://kit.fontawesome.com/6c35015843.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+		<script type="module" src="main.js"></script>
+	</body>
+</html>

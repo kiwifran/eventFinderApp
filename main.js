@@ -140,8 +140,7 @@ app.getUserInput = function() {
 				dataType: "json",
 				method: "GET",
 				headers: {
-					"Access-Control-Allow-Origin":
-						"https://kiwifran.github.io/eventFinderApp/"
+					"Access-Control-Allow-Origin": "*"
 				},
 				data: {
 					access_token: app.token,

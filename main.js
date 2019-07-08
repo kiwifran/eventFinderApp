@@ -140,11 +140,9 @@ app.getUserInput = function() {
 				url: RESOURCE_ENDPOINT,
 				dataType: "json",
 				method: "GET",
-				headers: {
-					"Access-Control-Allow-Origin": app.documentLoc
-				},
 				data: {
-					access_token: app.token,
+					key: "18569772d776f354c166e3a335b443c",
+					// access_token: app.token,
 					page: 12,
 					fields: "plain_text_no_images_description,photo_album"
 				}
@@ -194,14 +192,13 @@ app.apiCall = async function() {
 app.apiCallLocation = function() {
 	$.ajax({
 		url: LOCATIONS_ENDPOINT,
-		headers: {
-			"Access-Control-Allow-Origin": app.documentLoc
-		},
+
 		dataType: "json",
 		method: "GET",
 		data: {
 			query: app.locationInput,
-			access_token: app.token
+			key: "18569772d776f354c166e3a335b443c"
+			// access_token: app.token
 		}
 	})
 		.then(res => {
@@ -384,13 +381,11 @@ app.modalCallback = function() {
 			url: IMAGE_ENDPOINT,
 			dataType: "json",
 			method: "GET",
-			headers: {
-				"Access-Control-Allow-Origin": app.documentLoc
-			},
 			data: {
 				group_urlname: urlname,
 				page: 20,
-				access_token: app.token
+				key: "18569772d776f354c166e3a335b443c"
+				// access_token: app.token
 			}
 		})
 			.then(res => {

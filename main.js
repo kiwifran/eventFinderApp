@@ -142,7 +142,7 @@ app.getUserInput = function() {
 				method: "GET",
 				headers: {
 					'Access-Control-Allow-Origin':
-						'https://kiwifran.github.io/eventFinderApp/'
+						'https://kiwifran.github.io'
 				},
 				data: {
 					page: 12,
@@ -199,7 +199,7 @@ app.apiCallLocation = function() {
 		method: "GET",
 		headers: {
 			'Access-Control-Allow-Origin':
-				'https://kiwifran.github.io/eventFinderApp/'
+				'https://kiwifran.github.io'
 		},
 		data: {
 			query: app.locationInput,

@@ -141,7 +141,6 @@ app.getUserInput = function() {
 				method: "GET",
 				data: {
 					page: 12,
-					// key: "18569772d776f354c166e3a335b443c"
 					access_token: app.token
 				}
 			};
@@ -198,9 +197,7 @@ app.apiCallLocation = function() {
 		},
 		xmlToJSON: false,
 		useCache: false
-	}).then(res => {
-		console.log(res);
-		
+	}).then(res => {		
 		//if the api returns some data, take the first location data and store it in the app object.
 		if (res.length) {
 			app.locationInfo = {

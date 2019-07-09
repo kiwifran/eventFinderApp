@@ -138,7 +138,7 @@ app.getUserInput = function() {
 		if (app.token) {
 			app.paramsForApiCall = {
 				url: RESOURCE_ENDPOINT,
-				dataType: "jsonp",
+				dataType: "json",
 				method: "GET",
 				headers: {
 					'Access-Control-Allow-Origin':
@@ -195,7 +195,7 @@ app.apiCall = async function() {
 app.apiCallLocation = function() {
 	$.ajax({
 		url: LOCATIONS_ENDPOINT,
-		dataType: "jsonp",
+		dataType: "json",
 		method: "GET",
 		headers: {
 			'Access-Control-Allow-Origin':

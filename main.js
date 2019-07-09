@@ -32,7 +32,6 @@ app.extractToken = function(hash) {
 //check if the user has authenticated the app  and change the icon respectively
 app.checkOauth = function() {
 	app.token = app.extractToken(document.location.hash);
-	app.documentLoc = document.location.href;	
 	if (app.token) {
 		$("a.connect").html(
 			`<i aria-hidden class="fas fa-sign-out-alt"/> Log Out`
@@ -195,7 +194,6 @@ app.apiCallLocation = function() {
 		method: "GET",
 		data: {
 			query: app.locationInput,
-			// key: "18569772d776f354c166e3a335b443c"
 			access_token: app.token
 		},
 		xmlToJSON: false,
@@ -379,20 +377,16 @@ app.modalCallback = function() {
 	$(document).on("show.bs.modal", ".modal", function(e) {
 		const { urlname, groupname, modalnum } = $(this).data();
 		$.ajax({
-			url: "http://proxy.hackeryou.com",
+			url: IMAGE_ENDPOINT,
 			dataType: "json",
 			method: "GET",
 			data: {
-				reqUrl: IMAGE_ENDPOINT,
-				params: {
-					group_urlname: urlname,
-					page: 20,
-					key: "18569772d776f354c166e3a335b443c"
-				},
-				xmlToJSON: false,
-				useCache: false
-				// access_token: app.token
-			}
+				group_urlname: urlname,
+				page: 20,
+				access_token: app.token
+			},
+			xmlToJSON: false,
+			useCache: false
 		})
 			.then(res => {
 				if (res.results.length) {

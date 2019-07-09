@@ -140,10 +140,6 @@ app.getUserInput = function() {
 				url: RESOURCE_ENDPOINT,
 				dataType: "json",
 				method: "GET",
-				headers: {
-					'Access-Control-Allow-Origin':
-						'https://kiwifran.github.io'
-				},
 				data: {
 					page: 12,
 					// key: "18569772d776f354c166e3a335b443c"
@@ -197,10 +193,6 @@ app.apiCallLocation = function() {
 		url: LOCATIONS_ENDPOINT,
 		dataType: "json",
 		method: "GET",
-		headers: {
-			'Access-Control-Allow-Origin':
-				'https://kiwifran.github.io'
-		},
 		data: {
 			query: app.locationInput,
 			// key: "18569772d776f354c166e3a335b443c"

@@ -190,7 +190,7 @@ app.apiCall = async function() {
 //call the location endpoints for lon and lat information, then call the events endpoints conditionally
 app.apiCallLocation = function() {
 	$.ajax({
-		url: LOCATIONS_ENDPOINT,
+		url: `https://cors-anywhere.herokuapp.com/${LOCATIONS_ENDPOINT}`,
 		dataType: "json",
 		method: "GET",
 		data: {
@@ -201,6 +201,8 @@ app.apiCallLocation = function() {
 		xmlToJSON: false,
 		useCache: false
 	}).then(res => {
+		console.log(res);
+		
 		//if the api returns some data, take the first location data and store it in the app object.
 		if (res.length) {
 			app.locationInfo = {
